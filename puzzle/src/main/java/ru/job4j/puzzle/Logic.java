@@ -73,20 +73,34 @@ public class Logic {
         boolean result = false;
         for (int i = 0; i < table.length; i++) {
             if (table[i][i] == 1) {
-                for (int j = 0; j < table.length; j++) {
-                    if (table[i][j] == 1 || table[j][i] == 1) {
-                        result = true;
-
-                    } else {
-                        result = false;
-                        break;
-                    }
-
+                if (horizontal(i, table) || vertical(i, table)) {
+                    result = true;
                 }
-
             }
         }
         return result;
+    }
+
+    private boolean horizontal(int i, int[][] table) {
+        boolean rsl = true;
+        for (int j = 0; j < table.length; j++) {
+            if (table[i][j] == 1) {
+                rsl = false;
+                break;
+            }
+        }
+        return rsl;
+    }
+
+    private boolean vertical(int i, int[][] table) {
+        boolean rsl = true;
+        for (int j = 0; j < table.length; j++) {
+            if (table[j][i] == 1) {
+                rsl = false;
+                break;
+            }
+        }
+        return rsl;
     }
 
     public int[][] convert() {
