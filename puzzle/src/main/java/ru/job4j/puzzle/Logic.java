@@ -75,6 +75,7 @@ public class Logic {
             if (table[i][i] == 1) {
                 if (horizontal(i, table) || vertical(i, table)) {
                     result = true;
+                    break;
                 }
             }
         }
@@ -84,7 +85,7 @@ public class Logic {
     private boolean horizontal(int i, int[][] table) {
         boolean rsl = true;
         for (int j = 0; j < table.length; j++) {
-            if (table[i][j] == 1) {
+            if (table[i][j] != 1) {
                 rsl = false;
                 break;
             }
@@ -95,7 +96,7 @@ public class Logic {
     private boolean vertical(int i, int[][] table) {
         boolean rsl = true;
         for (int j = 0; j < table.length; j++) {
-            if (table[j][i] == 1) {
+            if (table[j][i] != 1) {
                 rsl = false;
                 break;
             }
