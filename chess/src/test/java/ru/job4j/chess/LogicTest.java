@@ -17,4 +17,13 @@ public class LogicTest {
         boolean rsl = logic.move(Cell.C1, Cell.H6);
         assertThat(rsl, is(true));
     }
+
+    @Ignore
+    @Test
+    public void moveWrong() {
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        boolean rsl = logic.move(Cell.C4, Cell.H6);
+        assertThat(rsl, is(false));
+    }
 }
