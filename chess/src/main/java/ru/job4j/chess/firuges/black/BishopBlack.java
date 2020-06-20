@@ -38,7 +38,7 @@ public class BishopBlack implements Figure {
 
     public boolean isDiagonal(Cell source, Cell dest) {
         boolean diagonal = false;
-        if (source.x - source.y == dest.x - dest.y || source.x + source.y == dest.x + dest.y) {
+        if (Math.abs(source.x - dest.x) == Math.abs(source.y - dest.y)) {
             diagonal = true;
         }//TODO check diagonal
         return diagonal;
