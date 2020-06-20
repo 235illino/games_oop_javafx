@@ -25,11 +25,16 @@ public class Logic {
         boolean rst = false;
         int index = this.findBy(source);
         if (index != -1) {
-            Cell[] steps = this.figures[index].way(source, dest);
-            if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                rst = true;
-                this.figures[index] = this.figures[index].copy(dest);
+            try {
+                Cell[] steps = this.figures[index].way(source, dest);
+                if (moveClear(steps) && steps.length > 0 && steps[steps.length - 1].equals(dest)) {
+                    rst = true;
+                    this.figures[index] = this.figures[index].copy(dest);
+                }
+            } catch (IllegalStateException e) {
+                e.getMessage();
             }
+
         }
         return rst;
     }
@@ -50,6 +55,19 @@ public class Logic {
             }
         }
         return rst;
+    }
+
+    public boolean moveClear(Cell[] steps) {
+        boolean moveC = true;
+        for (int i = 0; i < figures.length; i++) {
+            for (int j = 0; j < steps.length; j++) {
+                if (figures[i].position().equals(steps[j])) {
+                     moveC = false;
+                     break;
+                }
+            }
+        }
+        return moveC;
     }
 
     @Override
