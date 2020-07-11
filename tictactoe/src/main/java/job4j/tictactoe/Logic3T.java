@@ -24,34 +24,22 @@ public class Logic3T {
         return result;
     }
 
+    public boolean isWin(Predicate<Figure3T> predicate) {
+        return this.fillBy(predicate, 0, 0, 1, 0) ||
+                this.fillBy(predicate, 0, 0, 0, 1) ||
+                this.fillBy(predicate, 0, 0, 1, 1) ||
+                this.fillBy(predicate, 0, 1, 1, 0) ||
+                this.fillBy(predicate, 1, 0, 0, 1) ||
+                this.fillBy(predicate, 0, 2, 1, 0) ||
+                this.fillBy(predicate, 2, 0, 0, 1) ||
+                this.fillBy(predicate, 2, 0, -1, 1);
+    }
+
     public boolean isWinnerX() {
-        return this.fillBy(getHasMarkX(), 0, 0, 1, 0) ||
-                this.fillBy(getHasMarkX(), 0, 0, 0, 1) ||
-                this.fillBy(getHasMarkX(), 0, 0, 1, 1) ||
-                this.fillBy(getHasMarkX(), 0, 1, 1, 0) ||
-                this.fillBy(getHasMarkX(), 1, 0, 0, 1) ||
-                this.fillBy(getHasMarkX(), 0, 2, 1, 0) ||
-                this.fillBy(getHasMarkX(), 2, 0, 0, 1) ||
-                this.fillBy(getHasMarkX(), this.table.length - 1, 0, -1, 1);
+        return isWin(Figure3T::hasMarkX);
     }
-
-    private Predicate<Figure3T> getHasMarkX() {
-        return Figure3T::hasMarkX;
-    }
-
     public boolean isWinnerO() {
-        return this.fillBy(getHasMarkO(), 0, 0, 1, 0) ||
-                this.fillBy(getHasMarkO(), 0, 0, 0, 1) ||
-                this.fillBy(getHasMarkO(), 0, 0, 1, 1) ||
-                this.fillBy(getHasMarkO(), 0, 1, 1, 0) ||
-                this.fillBy(getHasMarkO(), 1, 0, 0, 1) ||
-                this.fillBy(getHasMarkO(), 0, 2, 1, 0) ||
-                this.fillBy(getHasMarkO(), 2, 0, 0, 1) ||
-                this.fillBy(getHasMarkO(), this.table.length - 1, 0, -1, 1);
-    }
-
-    private Predicate<Figure3T> getHasMarkO() {
-        return Figure3T::hasMarkO;
+        return isWin(Figure3T::hasMarkX);
     }
 
     public boolean hasGap() {
