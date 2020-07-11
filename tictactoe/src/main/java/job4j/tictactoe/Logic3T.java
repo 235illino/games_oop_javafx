@@ -1,5 +1,6 @@
 package job4j.tictactoe;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class Logic3T {
@@ -24,42 +25,36 @@ public class Logic3T {
     }
 
     public boolean isWinnerX() {
-        return this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 0, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 0,0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 0,1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 1,0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, 0,2, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkX, 2,0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkX, this.table.length - 1 , 0, -1, 1);
+        return this.fillBy(getHasMarkX(), 0, 0, 1, 0) ||
+                this.fillBy(getHasMarkX(), 0, 0, 0, 1) ||
+                this.fillBy(getHasMarkX(), 0, 0, 1, 1) ||
+                this.fillBy(getHasMarkX(), 0, 1, 1, 0) ||
+                this.fillBy(getHasMarkX(), 1, 0, 0, 1) ||
+                this.fillBy(getHasMarkX(), 0, 2, 1, 0) ||
+                this.fillBy(getHasMarkX(), 2, 0, 0, 1) ||
+                this.fillBy(getHasMarkX(), this.table.length - 1, 0, -1, 1);
+    }
+
+    private Predicate<Figure3T> getHasMarkX() {
+        return Figure3T::hasMarkX;
     }
 
     public boolean isWinnerO() {
-        return this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 0, 0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 0,0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 0,1, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 1,0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, 0,2, 1, 0) ||
-                this.fillBy(Figure3T::hasMarkO, 2,0, 0, 1) ||
-                this.fillBy(Figure3T::hasMarkO, this.table.length - 1 , 0, -1, 1);
+        return this.fillBy(getHasMarkO(), 0, 0, 1, 0) ||
+                this.fillBy(getHasMarkO(), 0, 0, 0, 1) ||
+                this.fillBy(getHasMarkO(), 0, 0, 1, 1) ||
+                this.fillBy(getHasMarkO(), 0, 1, 1, 0) ||
+                this.fillBy(getHasMarkO(), 1, 0, 0, 1) ||
+                this.fillBy(getHasMarkO(), 0, 2, 1, 0) ||
+                this.fillBy(getHasMarkO(), 2, 0, 0, 1) ||
+                this.fillBy(getHasMarkO(), this.table.length - 1, 0, -1, 1);
+    }
+
+    private Predicate<Figure3T> getHasMarkO() {
+        return Figure3T::hasMarkO;
     }
 
     public boolean hasGap() {
-        boolean result = false;
-        for (Figure3T[] x : table) {
-            for (Figure3T figure3T: x) {
-                if(!figure3T.hasMarkO() && !figure3T.hasMarkX()) {
-                    result = true;
-                    break;
-                }
-            }
-
-            if (result == true) {
-                break;
-            }
-
-        }
-        return true;
+        return Arrays.stream(table).flatMap(Arrays::stream).anyMatch(figure3T -> !figure3T.hasMarkX() && !figure3T.hasMarkO());
     }
 }
